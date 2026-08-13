@@ -47,4 +47,16 @@ class User extends MongoUser
     {
         return $this->role === 'cashier';
     }
+
+    public function ownedStores()
+    {
+        return $this->hasMany(store::class, 'owner_id');
+    }
+
+    public function hasAccessToStore(string $storeId): bool
+    {
+        if($this->isAdmin()) return true;
+
+        return in_array($storeId, $this->assigned_store_ids ?? []);
+    }
 }
