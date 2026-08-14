@@ -12,7 +12,7 @@ Route::middleware(['auth', 'verified', 'ensureHasStore'])->group(function () {
     Route::post('stores/{storeId}/switch', [StoreController::class, 'switchStore'])->name('stores.switch');
 
     Route::middleware(['role:admin'])->group(function() {
-        Route::resource('stores', StoreController::class)->only('index', 'store');
+        Route::resource('stores', StoreController::class)->only('index', 'create', 'store');
     });
 });
 

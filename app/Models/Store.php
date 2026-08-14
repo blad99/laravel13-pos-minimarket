@@ -9,7 +9,7 @@ use MongoDB\Laravel\Eloquent\Model;
 #[Connection("mongodb")]
 #[Fillable(
     "name",
-    "addres",
+    "address",
     "phone",
     "logo_path",
     "tax_rate",

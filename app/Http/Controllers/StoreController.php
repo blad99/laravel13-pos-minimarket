@@ -29,6 +29,13 @@ class StoreController extends Controller
         ]);
     }
 
+    /**
+     * Menampilkan halaman form untuk membuat toko baru.
+     */
+    public function create(): Response
+    {
+        return Inertia::render('Stores/Create');
+    }
     
     /**
      * Menyimpan toko baru ke database.
@@ -50,7 +57,7 @@ class StoreController extends Controller
         // Daftarkan toko baru ke akses admin tersebut
         $this->assignNewStoreToUser($user, $newStore->id);
 
-        return redirect()->back()->with('success', 'Toko berhasil ditambahkan.');
+        return redirect()->route('stores.index')->with('success', 'Toko berhasil ditambahkan.');
     }
 
     /**
@@ -78,7 +85,7 @@ class StoreController extends Controller
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string'],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:12'],
             'tax_rate' => ['required', 'numeric', 'min:0', 'max:100'],
             'receipt_prefix' => ['required', 'string', 'max:5'],
             'active_payment_methods' => ['required', 'array', 'min:1'],
