@@ -13,8 +13,6 @@ trait BelongToStore
      */
     protected static function bootBelongToStore(): void
     {
-        
-
         // 1. GLOBAL SCOPE: Otomatis mem-filter data yang dibaca berdasarkan toko yang aktif di Session
         static::addGlobalScope('store', function(Builder $builder) {
             $currentStoreId = session('current_store_id');

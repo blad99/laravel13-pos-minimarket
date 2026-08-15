@@ -28,6 +28,11 @@ const mainNavItems: NavItem[] = [
         href: storesIndex().url,
         icon: Store,
     },
+    {
+        title: 'Kategori',
+        href: categoriesIndex().url,
+        icon: Store,
+    },
 ];
 
 const footerNavItems: NavItem[] = [];
