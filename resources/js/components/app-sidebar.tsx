@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import { index as storesIndex } from '@/routes/stores';
+import { index as categoriesIndex } from '@/routes/categories';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [

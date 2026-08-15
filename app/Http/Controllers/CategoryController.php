@@ -19,7 +19,12 @@ class CategoryController extends Controller
         // Trait BelongsToStore sudah mengurusnya! Kita cukup panggil ::all() atau ::get().
         $categories = Category::orderBy('name', 'asc')->get();
 
-        return Inertia::render('Categories/ndex', [
+
+        if($categories->isEmpty()) {
+            $categories = [];
+        }
+
+        return Inertia::render('Categories/Index', [
             'categories' => $categories
         ]);
     }
@@ -78,10 +83,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse
     {
-        // Cek apakah ada produk yang masih memakai kategori ini (Opsional, tapi praktik bagus)
-        if ($category->production->count() > 0) return redirect()->back()->with('error', 'Gagal menghapus: Masih ada produk di dalam kategori ini.');
+        // TODO: Buka komen ini nanti setelah model Product dibuat
+        // if ($category->products()->count() > 0) {
+        //     return redirect()->back()->with('error', 'Gagal menghapus: Masih ada produk di dalam kategori ini.');
+        // }
 
         $category->delete();
 
