@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Head, useForm, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,24 +6,9 @@ import { Label } from '@/components/ui/label';
 
 // Asumsi Anda memiliki rute khusus untuk products
 import productsRoutes from '@/routes/products';
+import type { Category } from '@/types/category';
+import type { Product } from '@/types/product';
 
-type Category = {
-    id: string;
-    name: string;
-};
-
-type Product = {
-    id: string;
-    category_id: string;
-    barcode: string | null;
-    name: string;
-    description: string | null;
-    cost_price: number;
-    selling_price: number;
-    stock: number;
-    is_active: boolean;
-    category: Category; // Berasal dari relasi with('category')
-};
 
 type Props = {
     products: Product[];
@@ -32,6 +17,7 @@ type Props = {
 };
 
 export default function Index({ products, categories, filters }: Props) {
+    const [searchQuery, setSearchQuery] = useState(filters.search || '');
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
     const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
@@ -88,13 +74,22 @@ export default function Index({ products, categories, filters }: Props) {
     };
 
     // --- FUNGSI SEARCH ---
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // Menggunakan router.get untuk pencarian dengan mempertahankan state
-        router.get(productsRoutes.index().url, { search: e.target.value }, {
-            preserveState: true,
-            replace: true, // Tidak menumpuk history browser
-        });
-    };
+    useEffect(() => {
+        // Abaikan jika ini adalah load pertama dan kosong
+        if (searchQuery === filters.search) return;
+        // Pasang timer (timer akan menyala selama 500ms setelah user berhenti mengetik)
+        const delaySearch = setTimeout(() => {
+            router.get(productsRoutes.index().url, { search: searchQuery }, {
+                preserveState: true,
+                replace: true,
+            });
+        }, 500); // 500 milidetik (Setengah detik)
+        // Cleanup function: 
+        // Jika user mengetik huruf baru SEBELUM 500ms habis, 
+        // React akan membatalkan timer lama, dan mengulang hitungan 500ms dari awal.
+        return () => clearTimeout(delaySearch);
+
+    }, [searchQuery]); // Efek ini hanya dijalankan saat searchQuery berubah
 
     return (
         <>
@@ -218,8 +213,8 @@ export default function Index({ products, categories, filters }: Props) {
                             <Input
                                 type="search"
                                 placeholder="Cari nama atau barcode..."
-                                defaultValue={filters.search}
-                                onChange={handleSearch}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 className="max-w-xs"
                             />
                         </div>

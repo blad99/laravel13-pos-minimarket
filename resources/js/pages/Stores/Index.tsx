@@ -3,12 +3,7 @@ import { Button } from '@/components/ui/button';
 import { create, switchMethod, index as storesIndex } from '@/routes/stores';
 
 // Mendefinisikan tipe data TypeScript untuk Store
-type Store = {
-    id: string;
-    name: string;
-    address: string;
-    is_active: boolean;
-};
+import type { Store } from '@/types/store';
 
 export default function Index({ stores }: { stores: Store[] }) {
     const { post } = useForm();

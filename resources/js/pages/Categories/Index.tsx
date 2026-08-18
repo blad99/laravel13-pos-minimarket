@@ -7,12 +7,7 @@ import { Label } from '@/components/ui/label';
 // Asumsi rute kustom Anda seperti ini:
 import categoriesRoutes from '@/routes/categories';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-
-type Category = {
-    id: string;
-    name: string;
-    description: string | null;
-};
+import type { Category } from '@/types/category';
 
 export default function Index({ categories }: { categories: Category[] }) {
     // State untuk melacak kategori mana yang sedang diedit. Jika null, berarti mode Tambah.
