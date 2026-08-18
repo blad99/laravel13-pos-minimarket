@@ -26,8 +26,8 @@ class Store extends Model
     protected function casts(): array
     {
         return [
-            'tax_rate' => 'float',
-            'is_active' => 'boolean',
+            'tax_rate'               => 'float',
+            'is_active'              => 'boolean',
             'active_payment_methods' => 'array',
         ];
     }

@@ -5,7 +5,8 @@ namespace App\Models;
 use App\Traits\BelongToStore;
 use Illuminate\Database\Eloquent\Attributes\Connection;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model as MongoModel;
+
 
 #[Connection('mongodb')]
 #[Fillable([
@@ -14,7 +15,7 @@ use MongoDB\Laravel\Eloquent\Model;
     'description'
 ])]
 
-class Category extends Model
+class Category extends MongoModel
 {
     // ✨ Ini adalah "Magic Filter" yang kita buat di Sprint 3!
     // Dengan 1 baris ini, Category otomatis difilter dan di-assign ke toko aktif.

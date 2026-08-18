@@ -86,9 +86,9 @@ class CategoryController extends Controller
     public function destroy(Category $category): RedirectResponse
     {
         // TODO: Buka komen ini nanti setelah model Product dibuat
-        // if ($category->products()->count() > 0) {
-        //     return redirect()->back()->with('error', 'Gagal menghapus: Masih ada produk di dalam kategori ini.');
-        // }
+        if ($category->products()->count() > 0) {
+            return redirect()->back()->with('error', 'Gagal menghapus: Masih ada produk di dalam kategori ini.');
+        }
 
         $category->delete();
 
