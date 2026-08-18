@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\BelongToStore;
 use Illuminate\Database\Eloquent\Attributes\Connection;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Model as MongoModel;
+use MongoDB\Laravel\Eloquent\Model as MongoModel;
 
 #[Connection('mongodb')]
 #[Fillable([

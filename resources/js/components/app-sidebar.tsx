@@ -16,6 +16,7 @@ import {
 import { dashboard } from '@/routes';
 import { index as storesIndex } from '@/routes/stores';
 import { index as categoriesIndex } from '@/routes/categories';
+import { index as productsIndex } from '@/routes/products';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
@@ -32,6 +33,11 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Kategori',
         href: categoriesIndex().url,
+        icon: Store,
+    },
+    {
+        title: 'Produk',
+        href: productsIndex().url,
         icon: Store,
     },
 ];

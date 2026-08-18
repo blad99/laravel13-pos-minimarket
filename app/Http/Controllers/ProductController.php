@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index(Request $request): Response
     {
-        $search = $request->query('search');
+        $search = $request->query('search', '');
 
         $productsQuery = Product::with('category')->orderBy('name', 'asc');
 
